@@ -1,0 +1,5 @@
+package com.star.sud.app.repository;
+
+public interface DepartmentRepository {
+
+}

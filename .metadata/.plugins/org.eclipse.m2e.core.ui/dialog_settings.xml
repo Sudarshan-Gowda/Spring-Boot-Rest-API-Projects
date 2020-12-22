@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="&#x0A;/Users/sudarshan/development/server-side/java/spring-boot/git-dev/2020-DEC/"/>
+			<item value="/Users/sudarshan/development/server-side/java/spring-boot/git-dev/2020-DEC/restapi-oracle-schema-multiple-datasource"/>
+			<item value="/Users/sudarshan/development/server-side/java/spring-boot/git-dev/2020-DEC/restapi-oracle-schema-encryptable-properties"/>
+			<item value="/Users/sudarshan/development/server-side/java/spring-boot/git-dev/2020-DEC/restapi-oracle-schema-custom-propertyfile"/>
+			<item value="/Users/sudarshan/development/server-side/java/spring-boot/git-dev/2020-DEC/restapi-oracle-schema-war"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+</section>

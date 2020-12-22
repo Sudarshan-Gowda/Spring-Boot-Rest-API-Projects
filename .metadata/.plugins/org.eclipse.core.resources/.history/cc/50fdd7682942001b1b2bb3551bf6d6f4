@@ -1,0 +1,42 @@
+/**
+ * 
+ */
+package com.star.sud.app.common;
+
+/**
+ * @author Sudarshan
+ *
+ */
+public enum SeverityLevel {
+
+	ERROR("ERROR", "ERROR"), WARNING("WARNING", "WARNING"), INFO("INFO", "INFO");
+
+	private String code;
+	private String description;
+
+	/**
+	 * @param code
+	 * @param description
+	 */
+	private SeverityLevel(String code, String description) {
+		this.code = code;
+		this.description = description;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+}

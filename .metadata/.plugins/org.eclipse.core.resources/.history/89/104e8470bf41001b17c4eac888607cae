@@ -1,0 +1,5 @@
+package com.star.sud.app.service;
+
+public interface ITransactionService {
+
+}

@@ -1,0 +1,6 @@
+package com.star.sud.app.shoppingcart.entity;
+
+
+public class User {
+
+}

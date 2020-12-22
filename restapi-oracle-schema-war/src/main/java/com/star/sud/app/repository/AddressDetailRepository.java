@@ -1,0 +1,9 @@
+package com.star.sud.app.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.star.sud.app.entity.AddressDetail;
+
+public interface AddressDetailRepository extends JpaRepository<AddressDetail, Long> {
+
+}

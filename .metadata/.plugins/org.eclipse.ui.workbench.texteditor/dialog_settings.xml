@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="idLength"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="idLength"/>
+			<item value="status"/>
+			<item value="transactionPersistenceUnit"/>
+			<item value="PRODUCT_ID_SEQ"/>
+			<item value="RESEARCH"/>
+			<item value="SHPCART_ITEM_ID"/>
+			<item value="SHPCART_ID"/>
+			<item value="EMPLOYEE"/>
+			<item value="Employee"/>
+			<item value="EMP"/>
+			<item value="Department"/>
+			<item value="DEPARTMENT"/>
+			<item value="SHOP"/>
+			<item value="SHOO"/>
+			<item value="spring.datasource.secon"/>
+		</list>
+		<list key="replacehistory">
+			<item value="ONLINE_APP"/>
+			<item value="User"/>
+			<item value="USER"/>
+			<item value="Shopping Cart"/>
+			<item value="SHOPPING_CART"/>
+			<item value=""/>
+			<item value="spring.datasource.second"/>
+			<item value="spring.datasource.first"/>
+			<item value="restTransactionManagerSecond"/>
+			<item value="transactionEntityManagerFactorySecondary"/>
+			<item value="restSecondary"/>
+			<item value="spring.first.datasource"/>
+			<item value="restTransactionManager"/>
+			<item value="restPrimary"/>
+			<item value="DEPARTMENT"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="894"/>
+		<item key="DIALOG_Y_ORIGIN" value="107"/>
+		<item key="DIALOG_WIDTH" value="294"/>
+		<item key="DIALOG_HEIGHT" value="408"/>
+		<item key="DIALOG_FONT_NAME" value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="454"/>
+		<item key="DIALOG_Y_ORIGIN" value="340"/>
+	</section>
+</section>

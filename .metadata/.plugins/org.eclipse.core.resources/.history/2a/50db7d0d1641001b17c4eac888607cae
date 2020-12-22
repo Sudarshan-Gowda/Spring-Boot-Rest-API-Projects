@@ -1,0 +1,8 @@
+package com.star.sud.app.constant;
+
+public class Constants {
+
+	public static final String SCHEMA_NAME = "";
+	public static final String TRXN_NUM_PREFIX = "3";
+
+}

@@ -1,0 +1,10 @@
+package com.star.sud.app.validator;
+
+import javax.validation.Validator;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class TransactionCommonValidator implements Validator{
+
+}

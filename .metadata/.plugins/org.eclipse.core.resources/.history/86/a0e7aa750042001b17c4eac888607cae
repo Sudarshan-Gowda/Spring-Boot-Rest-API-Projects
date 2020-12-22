@@ -1,0 +1,11 @@
+package com.star.sud.app.service;
+
+import org.springframework.http.ResponseEntity;
+
+import com.star.sud.app.dto.EmployeeDto;
+
+public interface ITransactionService {
+
+	ResponseEntity<?> createEmployee(EmployeeDto employee);
+
+}

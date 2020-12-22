@@ -1,0 +1,27 @@
+package com.star.sud.app.shoppingcart.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+
+import com.star.sud.app.constant.Constants;
+
+public class ShoppingCartItems implements Serializable {
+
+	// Static Attributes
+	/////////////////////
+	private static final long serialVersionUID = -6381183293158878816L;
+
+	// Attributes
+	///////////////
+	@Id
+	@SequenceGenerator(name = "SHOPPING_CART_ITEMS_SEQ", allocationSize = 1, sequenceName = "SHOPPING_CART_ITEMS_SEQ", schema = Constants.SCHEMA_ONLINE_APP)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SHOPPING_CART_ITEMS_SEQ")
+	@Column(name = "SHPCART_ITEM_ID")
+	private Long shapCartId;
+
+}

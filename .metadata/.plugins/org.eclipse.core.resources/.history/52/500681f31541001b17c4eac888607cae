@@ -1,0 +1,7 @@
+package com.star.sud.app.constant;
+
+public class Constants {
+
+	public static final String SCHEMA_NAME = "";
+
+}

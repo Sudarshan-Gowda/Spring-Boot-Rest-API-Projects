@@ -1,0 +1,5 @@
+package com.star.sud.app.shoppingcart.validator;
+
+public class OnlineAppValidator {
+
+}

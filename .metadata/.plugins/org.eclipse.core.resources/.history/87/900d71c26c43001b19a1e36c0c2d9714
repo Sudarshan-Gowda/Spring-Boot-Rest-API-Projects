@@ -1,0 +1,72 @@
+package com.star.sud.app.shoppingcart.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import com.star.sud.app.constant.Constants;
+
+@Entity
+@Table(name = "SHOPPING_CART", schema = Constants.SCHEMA_ONLINE_APP)
+public class ShoppingCart implements Serializable{
+
+	@Id
+	@SequenceGenerator(name = "SHPCART_ID_SEQ", allocationSize = 1, sequenceName = "SHPCART_ID_SEQ", schema = Constants.SCHEMA_ONLINE_APP)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_DETAIL_ID_SEQ")
+	@Column(name = "SHPCART_ID")
+	private Long shapCartId;
+
+	@Column(name = "CREATE_DATE")
+	private Date createDate;
+
+	@Column(name = "STATUS")
+	private Character status;
+
+	@OneToOne
+	@JoinColumn(name = "USER_ID")
+	private User user;
+
+	// Properties
+	////////////////
+	public Long getShapCartId() {
+		return shapCartId;
+	}
+
+	public void setShapCartId(Long shapCartId) {
+		this.shapCartId = shapCartId;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Character getStatus() {
+		return status;
+	}
+
+	public void setStatus(Character status) {
+		this.status = status;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+}

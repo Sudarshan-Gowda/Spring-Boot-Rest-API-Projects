@@ -1,0 +1,21 @@
+package com.star.sud.app.shoppingcart.entity;
+
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "PRODUCT")
+public class Product {
+
+	private Long productId;
+	
+	private String productCode;
+	
+	private String productDesc;
+	
+	private Character status;
+	private Date createDate;
+	
+}

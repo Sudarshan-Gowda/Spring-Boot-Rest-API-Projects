@@ -1,0 +1,45 @@
+package com.star.sud.app;
+
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+@Configuration
+@EnableJpaRepositories(basePackages = "com.star.sud.app.employee.repository", entityManagerFactoryRef = "firstEntityManagerFactory", transactionManagerRef = "firstTrasactionManager")
+@EnableTransactionManagement
+public class FirstDatasourceConfiguration {
+
+	@Bean(name = "firstDs")
+	@ConfigurationProperties(prefix = "spring.datasource.first")
+	public DataSource firstDatasource() {
+		return DataSourceBuilder.create().build();
+	}
+
+	@Bean
+	public LocalContainerEntityManagerFactoryBean firstEntityManagerFactory(final EntityManagerFactoryBuilder builder) {
+		return builder.dataSource(firstDatasource()).packages("com.star.sud.app.employee.entity")
+				.persistenceUnit("firstPersistenceUnit").build();
+	}
+
+	@Bean
+	public JpaTransactionManager firstTrasactionManager(
+			@Qualifier("firstEntityManagerFactory") final EntityManagerFactory factory) {
+		return new JpaTransactionManager(factory);
+	}
+
+	@Bean(name = "primaryJdbcTemplate")
+	public JdbcTemplate jdbcTemplate(@Qualifier("firstDs") DataSource ds) {
+		return new JdbcTemplate(ds);
+	}
+}

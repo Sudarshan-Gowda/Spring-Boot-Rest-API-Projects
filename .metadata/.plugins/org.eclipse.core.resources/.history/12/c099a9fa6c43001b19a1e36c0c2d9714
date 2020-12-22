@@ -1,0 +1,7 @@
+package com.star.sud.app.shoppingcart.entity;
+
+import java.io.Serializable;
+
+public class ShoppingCartItems implements Serializable {
+
+}

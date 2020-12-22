@@ -1,0 +1,178 @@
+
+package com.star.sud.app.shoppingcart.service.impl;
+
+import java.text.ParseException;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.star.sud.app.constant.Constants;
+import com.star.sud.app.exception.RecordNotFoundException;
+import com.star.sud.app.shoppingcart.dto.ProductDto;
+import com.star.sud.app.shoppingcart.dto.ShoppingCartDto;
+import com.star.sud.app.shoppingcart.dto.ShoppingCartItemsDto;
+import com.star.sud.app.shoppingcart.dto.UserDto;
+import com.star.sud.app.shoppingcart.entity.Product;
+import com.star.sud.app.shoppingcart.entity.ShoppingCart;
+import com.star.sud.app.shoppingcart.entity.ShoppingCartItems;
+import com.star.sud.app.shoppingcart.entity.User;
+import com.star.sud.app.shoppingcart.repository.ProductRepository;
+import com.star.sud.app.shoppingcart.repository.ShoppingCartRepository;
+import com.star.sud.app.shoppingcart.repository.UserRepository;
+import com.star.sud.app.shoppingcart.service.IOnlineAppService;
+import com.star.sud.app.util.DateUtil;
+import com.star.sud.app.util.GenerateResponse;
+import com.star.sud.app.util.StringUtil;
+
+@Service
+@Transactional("secondTrasactionManager")
+public class OnlineAppServiceImpl implements IOnlineAppService {
+
+	@Autowired
+	private ProductRepository productRepo;
+
+	@Autowired
+	private UserRepository userRepo;
+
+	@Autowired
+	private ShoppingCartRepository shopRepo;
+
+	@Override
+	public ResponseEntity<?> createProduct(ProductDto request) throws ParseException {
+
+		Product entity = new Product();
+		BeanUtils.copyProperties(request, entity);
+		entity.setStatus(Constants.ACTIVE);
+		entity.setCreateDate(DateUtil.getCurrentDate());
+		Product save = productRepo.save(entity);
+		ProductDto response = new ProductDto();
+		BeanUtils.copyProperties(save, response);
+		response.setCreateDate(DateUtil.getDateInStringFmInputDate(save.getCreateDate()));
+		return new ResponseEntity<>(GenerateResponse.getSuccessResponse(response), HttpStatus.CREATED);
+	}
+
+	@Override
+	public ResponseEntity<?> createUser(UserDto request) {
+
+		User entity = new User();
+		BeanUtils.copyProperties(request, entity);
+		entity.setStatus(Constants.ACTIVE);
+		User save = userRepo.save(entity);
+		UserDto response = new UserDto();
+		BeanUtils.copyProperties(save, response);
+
+		return new ResponseEntity<>(GenerateResponse.getSuccessResponse(response), HttpStatus.CREATED);
+	}
+
+	@Override
+	public ResponseEntity<?> updateUser(String userId, UserDto request) throws Exception {
+
+		User user = userRepo.findById(userId)
+				.orElseThrow(() -> new RecordNotFoundException("User record not found: " + userId));
+		BeanUtils.copyProperties(request, user, "userId");
+		User save = userRepo.save(user);
+		UserDto response = new UserDto();
+		BeanUtils.copyProperties(save, response);
+
+		return new ResponseEntity<>(GenerateResponse.getSuccessResponse(response), HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<?> updateProduct(Long prdId, ProductDto request) throws Exception {
+
+		Product product = productRepo.findById(prdId)
+				.orElseThrow(() -> new Exception("No record found for the request: " + prdId));
+
+		BeanUtils.copyProperties(request, product);
+		Product save = productRepo.save(product);
+		ProductDto response = new ProductDto();
+		BeanUtils.copyProperties(save, response);
+
+		return new ResponseEntity<>(GenerateResponse.getSuccessResponse(response), HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<?> deleteUser(String userId) {
+		userRepo.deleteById(userId);
+		return new ResponseEntity<>(GenerateResponse.getSuccessResponse(null), HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<?> deleteProduct(Long prdId) {
+		productRepo.deleteById(prdId);
+		return new ResponseEntity<>(GenerateResponse.getSuccessResponse(null), HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<?> createShoppingCart(ShoppingCartDto request) {
+
+		ShoppingCart entity = new ShoppingCart();
+		BeanUtils.copyProperties(request, entity);
+		if (StringUtil.isNotEmptyList(request.getShoppingCartItems())) {
+			Set<ShoppingCartItems> shoppingCartItems = new HashSet<>();
+			request.getShoppingCartItems().stream().forEach(item -> {
+				ShoppingCartItems cartItems = new ShoppingCartItems();
+				BeanUtils.copyProperties(item, cartItems);
+				shoppingCartItems.add(cartItems);
+			});
+			entity.setShoppingCartItems(shoppingCartItems);
+		}
+
+		ShoppingCart save = shopRepo.save(entity);
+		ShoppingCart response = new ShoppingCart();
+		BeanUtils.copyProperties(save, response);
+		return new ResponseEntity<>(GenerateResponse.getSuccessResponse(response), HttpStatus.CREATED);
+	}
+
+	@Override
+	public ResponseEntity<?> deleteShoppingCart(Long cartId) {
+		shopRepo.deleteById(cartId);
+		return new ResponseEntity<>(GenerateResponse.getSuccessResponse(null), HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<?> getShoppingCartById(Long cartId) throws RecordNotFoundException {
+		ShoppingCart shoppingCart = shopRepo.findById(cartId)
+				.orElseThrow(() -> new RecordNotFoundException("No record found for the cartId:" + cartId));
+
+		ShoppingCartDto response = new ShoppingCartDto();
+		BeanUtils.copyProperties(shoppingCart, response, "shoppingCartItems");
+		if (StringUtil.isNotEmptyList(shoppingCart.getShoppingCartItems())) {
+			Set<ShoppingCartItemsDto> cartItemsDtos = new HashSet<>();
+			shoppingCart.getShoppingCartItems().stream().forEach(cart -> {
+				ShoppingCartItemsDto itemsDto = new ShoppingCartItemsDto();
+				BeanUtils.copyProperties(cart, itemsDto);
+				cartItemsDtos.add(itemsDto);
+			});
+			response.setShoppingCartItems(cartItemsDtos);
+		}
+		return new ResponseEntity<>(GenerateResponse.getSuccessResponse(response), HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<?> getProductById(Long prdId) throws RecordNotFoundException {
+		Product product = productRepo.findById(prdId)
+				.orElseThrow(() -> new RecordNotFoundException("No record found for the prodId:" + prdId));
+		ProductDto response = new ProductDto();
+		BeanUtils.copyProperties(product, response);
+		return new ResponseEntity<>(GenerateResponse.getSuccessResponse(response), HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<?> getUserById(String userId) throws RecordNotFoundException {
+		User user = userRepo.findById(userId)
+				.orElseThrow(() -> new RecordNotFoundException("User record not found: " + userId));
+		UserDto response = new UserDto();
+		BeanUtils.copyProperties(user, response);
+		response.setDateOfBirth(DateUtil.getDateInStringFmInputDate(user.getDateOfBirth()));
+
+		return new ResponseEntity<>(GenerateResponse.getSuccessResponse(response), HttpStatus.OK);
+	}
+
+}

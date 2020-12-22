@@ -1,0 +1,259 @@
+Maven Commands:
+==============
+
+MacOs:
+--------
+ mvn clean install -Dspring.config.location=src/main/resources/ -Dmaven.test.skip=true
+ mvn spring-boot:run -Dspring.config.location=src/main/resources/ -Djasypt.encryptor.password=Secret123
+ 
+
+**************************
+
+
+APP_URL = http://localhost:8080/restapi
+
+=======================================
+------------------------
+API 01 - Create Project:
+------------------------
+URI: <APP_URL>/transaction/project
+Method: POST
+
+Request:
+-------
+[
+    {
+        "projectCode":"PROJ-001",
+        "projectName":"Spring Boot Rest API",
+        "projectDesc":"Spring Boot Rest API using Oracle Schema"
+    }
+
+]
+
+Response:
+---------
+{
+    "data": [
+        {
+            "projectId": 01,
+            "projectCode": "PROJ-001",
+            "projectName": "Spring Boot Rest API",
+            "projectDesc": "Spring Boot Rest API using Oracle Schema"
+        }
+    ]
+}
+
+=======================================
+
+
+------------------------
+API 02 - Create Employee:
+------------------------
+URI: <APP_URL>/transaction/employee
+Method: POST
+
+Request:
+-------
+{
+    "empName": "User",
+    "empEmail": "user@gmail.com",
+    "dob":"1990-01-01",
+    "yearOfExp":2.5,
+    "deptCode": "PD",
+    "addressDetails": [
+        {
+            "addrType": "HOME",
+            "addrLine1": "#01, Bangalore",
+            "addrLine2": "Bangalore Central",
+            "postalCode": "560006",
+            "state": "KA",
+            "country": "INDIA"
+        },
+        {
+            "addrType": "OFFICE",
+            "addrLine1": "#02, BTM",
+            "addrLine2": "Bangalore South",
+            "postalCode": "560007",
+            "state": "KA",
+            "country": "INDIA"
+        }
+    ],
+    "projects": [
+        {
+            "projectId": "25"
+        },
+        {
+            "projectId": "26"
+        }
+    ]
+}
+
+Response:
+---------
+{
+    "data": {
+        "empId": "EMP100000066",
+        "empName": "User",
+        "empEmail": "user@gmail.com",
+        "yearOfExp": 2.5,
+        "dob": "1990-01-01",
+        "status": "A",
+        "addressDetails": [
+            {
+                "addrType": "HOME",
+                "addrLine1": "#01, Bangalore",
+                "addrLine2": "Bangalore Central",
+                "postalCode": "560006",
+                "state": "KA",
+                "country": "INDIA"
+            },
+            {
+                "addrType": "OFFICE",
+                "addrLine1": "#02, BTM",
+                "addrLine2": "Bangalore South",
+                "postalCode": "560007",
+                "state": "KA",
+                "country": "INDIA"
+            }
+        ],
+        "projects": [
+            {
+                "projectId": 25
+            },
+            {
+                "projectId": 26
+            }
+        ]
+    }
+}
+
+=======================================
+
+
+------------------------
+API 03 - Update Employee:
+------------------------
+URI: <APP_URL>/transaction/employee/{empId}
+Method: PUT
+
+Request:
+-------
+{
+    "empName": "User 01",
+    "empEmail": "user01@gmail.com",
+    "dob":"1985-01-01",
+    "deptCode": "PD",
+    "yearOfExp":3.0
+}
+
+Response:
+---------
+{
+    "empId": "EMP100000068",
+    "empName": "User 01",
+    "empEmail": "user01@gmail.com",
+    "yearOfExp": 3.0,
+    "dob": "1985-01-01"
+}
+
+=======================================
+
+
+------------------------
+API 04 - Get Employee By ID
+------------------------
+URI: <APP_URL>/transaction/employee/{empId}
+Method: POST
+
+Response:
+---------
+{
+    "data": {
+        "empId": "EMP100000058",
+        "empName": "User",
+        "empEmail": "user@gmail.com",
+        "status": "A",
+        "addressDetails": [
+            {
+                "addrType": "OFFICE",
+                "addrLine1": "#02, BTM",
+                "addrLine2": "Bangalore South",
+                "postalCode": "560007",
+                "state": "KA",
+                "country": "INDIA"
+            },
+            {
+                "addrType": "HOME",
+                "addrLine1": "#01, Bangalore",
+                "addrLine2": "Bangalore Central",
+                "postalCode": "560006",
+                "state": "KA",
+                "country": "INDIA"
+            }
+        ],
+        "projects": [
+            {
+                "projectId": 22,
+                "projectCode": "PROJ-001",
+                "projectName": "Spring Boot Rest API",
+                "projectDesc": "Spring Boot Rest API using Oracle Schema"
+            },
+            {
+                "projectId": 23,
+                "projectCode": "PROJ-002",
+                "projectName": "Spring Boot Rest API",
+                "projectDesc": "Spring Boot Rest API using Oracle Schema"
+            }
+        ]
+    }
+}
+
+
+=======================================
+
+
+------------------------
+API 04 - Get Projects By ID
+------------------------
+URI: <APP_URL>/transaction/projects/{projectId}
+Method: POST
+
+Response:
+---------
+{
+    "data": {
+        "projectId": 26,
+        "projectCode": "PROJ00000004",
+        "projectName": "Spring Boot Rest API",
+        "projectDesc": "Spring Boot Rest API using Oracle Schema",
+        "employees": [
+            {
+                "empName": "User",
+                "empEmail": "user@gmail.com",
+                "yearOfExp": 2.5
+            },
+            {
+                "empName": "User 01",
+                "empEmail": "user01@gmail.com",
+                "yearOfExp": 3
+            },
+            {
+                "empName": "User 02",
+                "empEmail": "user02@gmail.com",
+                "yearOfExp": 3.5
+            }
+        ]
+    }
+}
+
+
+
+=======================================
+
+------------------------
+API 04 - Delete Employee By ID
+------------------------
+URI: <APP_URL>/transaction/employee/{empId}
+Method: DELETE
+
+=======================================

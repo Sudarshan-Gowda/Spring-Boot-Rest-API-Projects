@@ -1,0 +1,33 @@
+package com.star.sud.app.shoppingcart.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "PRODUCT")
+public class Product implements Serializable{
+
+	@Id
+	@Column(name = "PRODUCT_ID")
+	private Long productId;
+
+	@Column(name = "PRODUCT_CODE")
+	private String productCode;
+
+	@Column(name = "PRODUCT_DESC")
+	private String productDesc;
+
+	@Column(name = "STATUS")
+	private Character status;
+
+	@Column(name = "CREATE_DATE")
+	private Date createDate;
+	
+	
+
+}

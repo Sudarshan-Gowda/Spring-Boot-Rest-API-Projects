@@ -1,0 +1,42 @@
+package com.star.sud.app.common;
+
+import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.id.IdentifierGenerator;
+
+import com.star.sud.app.constant.Constants;
+
+public class CustomGenerator implements IdentifierGenerator {
+
+	@Override
+	public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+		String prefix = Constants.TRXN_NUM_PREFIX;
+		String sql = "SELECT " + Constants.SCHEMA_NAME + ".TRANSACTION_COMMON_SEQ.NEXTVAL FROM DUAL";
+		int idLength = Constants.EMP_NUM_LENGTH;
+		Connection connection = session.connection();
+
+		try (Statement statement = connection.createStatement()) {
+			TransactionCommon contract = (TransactionCommon) object;
+
+			if (contract.getTrxnId() != null)
+				return contract.getTrxnId();
+
+			int sequenceLength = idLength - prefix.length();
+
+			ResultSet rs = statement.executeQuery(sql);
+			if (rs.next()) {
+				long id = rs.getLong(1);
+				String contractNo = prefix + StringUtils.leftPad(String.valueOf(id + 1), sequenceLength, "0");
+				return contractNo;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+}

@@ -1,0 +1,40 @@
+package com.star.sud.app.controller;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.star.sud.app.dto.EmployeeDto;
+import com.star.sud.app.service.ITransactionService;
+
+@Controller
+@RequestMapping(value = "/transaction")
+public class TransactionController {
+
+	// Static Attributes
+	//////////////////////
+	private static Logger log = LogManager.getLogger(TransactionController.class);
+
+	// Attributes
+	/////////////////
+	@Autowired
+	private ITransactionService service;
+
+	// RequestMapping Methods
+	/////////////////////
+	@PostMapping(value = "/employee")
+	public ResponseEntity<?> createEmployee(@RequestBody EmployeeDto request, BindingResult result) {
+
+		
+
+		return service.createEmployee(request);
+
+	}
+
+}

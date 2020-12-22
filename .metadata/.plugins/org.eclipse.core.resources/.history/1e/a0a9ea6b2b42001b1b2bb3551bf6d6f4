@@ -1,0 +1,99 @@
+package com.star.sud.app.dto;
+
+import java.io.Serializable;
+
+import javax.validation.constraints.Max;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
+public class AddressDetailDto implements Serializable {
+
+	// Static Attributes
+	/////////////////////
+	private static final long serialVersionUID = -5272964011424655924L;
+
+	// Attributes
+	///////////////////
+	private Long addressId;
+
+	private String addrType;
+
+	@Max(value = 100, message = "addrLine1 identifier should not excced lenght 100")
+	private String addrLine1;
+
+	@Max(value = 100, message = "addrLine2 identifier should not excced lenght 100")
+	private String addrLine2;
+
+	@Max(value = 10, message = "postalCode identifier should not excced lenght 10")
+	private String postalCode;
+
+	@Max(value = 10, message = "state identifier should not exceed lenght 10")
+	private String state;
+
+	private String country;
+
+	// Properties
+	///////////////////
+	public Long getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(Long addressId) {
+		this.addressId = addressId;
+	}
+
+	public String getAddrType() {
+		return addrType;
+	}
+
+	public void setAddrType(String addrType) {
+		this.addrType = addrType;
+	}
+
+	public String getAddrLine1() {
+		return addrLine1;
+	}
+
+	public void setAddrLine1(String addrLine1) {
+		this.addrLine1 = addrLine1;
+	}
+
+	public String getAddrLine2() {
+		return addrLine2;
+	}
+
+	public void setAddrLine2(String addrLine2) {
+		this.addrLine2 = addrLine2;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+}

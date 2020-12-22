@@ -1,0 +1,95 @@
+package com.star.sud.app.employee.dto;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
+public class ProjectsDto implements Serializable {
+
+	// Static Attributes
+	//////////////////////
+	private static final long serialVersionUID = -280249604837740080L;
+
+	// Attributes
+	////////////////
+	private Long projectId;
+
+	private String projectCode;
+
+	private String projectName;
+
+	private String projectDesc;
+
+	private Character status;
+
+	private Date createDate;
+
+	private Set<EmployeeDto> employees;
+
+	// Properties
+	/////////////////
+	public Long getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
+	}
+
+	public String getProjectCode() {
+		return projectCode;
+	}
+
+	public void setProjectCode(String projectCode) {
+		this.projectCode = projectCode;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public String getProjectDesc() {
+		return projectDesc;
+	}
+
+	public void setProjectDesc(String projectDesc) {
+		this.projectDesc = projectDesc;
+	}
+
+	public Character getStatus() {
+		return status;
+	}
+
+	public void setStatus(Character status) {
+		this.status = status;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Set<EmployeeDto> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(Set<EmployeeDto> employees) {
+		this.employees = employees;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+}

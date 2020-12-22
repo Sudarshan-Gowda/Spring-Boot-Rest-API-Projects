@@ -1,0 +1,5 @@
+package com.star.sud.app.validator;
+
+public class TransactionCommonValidator {
+
+}

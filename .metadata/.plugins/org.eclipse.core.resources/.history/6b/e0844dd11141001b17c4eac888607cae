@@ -1,0 +1,85 @@
+package com.star.sud.app.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.star.sud.app.constant.Constants;
+
+@Entity
+@Table(name = "DEPARTMENT", schema = Constants.SCHEMA_NAME)
+public class Department implements Serializable {
+
+	// Static Attributes
+	///////////////////////
+	private static final long serialVersionUID = 1367885079826316532L;
+
+	// Attributes
+	///////////////
+	@Id
+	@Column(name = "DEPT_CODE")
+	private String deptCode;
+
+	@Column(name = "DEPT_NAME")
+	private String deptName;
+
+	@Column(name = "DEPT_DESC")
+	private String deptDesc;
+
+	@Column(name = "CREATE_DATE")
+	private Date createDate;
+
+	@Column(name = "STATUS")
+	private Character status;
+
+	//Properties
+	//////////////////
+	public String getDeptCode() {
+		return deptCode;
+	}
+
+	public void setDeptCode(String deptCode) {
+		this.deptCode = deptCode;
+	}
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+
+	public String getDeptDesc() {
+		return deptDesc;
+	}
+
+	public void setDeptDesc(String deptDesc) {
+		this.deptDesc = deptDesc;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Character getStatus() {
+		return status;
+	}
+
+	public void setStatus(Character status) {
+		this.status = status;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+}

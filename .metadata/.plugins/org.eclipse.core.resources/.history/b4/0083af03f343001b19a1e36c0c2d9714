@@ -1,0 +1,52 @@
+package com.star.sud.app.shoppingcart.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.star.sud.app.shoppingcart.dto.ProductDto;
+import com.star.sud.app.shoppingcart.dto.UserDto;
+import com.star.sud.app.shoppingcart.service.IOnlineAppService;
+
+@RestController
+@RequestMapping(value = "restapi")
+public class OnlineAppController {
+
+	@Autowired
+	private IOnlineAppService service;
+
+	// Create Method
+	@PostMapping("/product")
+	public ResponseEntity<?> createProduct(@RequestBody ProductDto request) {
+		return service.createProduct(request);
+	}
+
+	@PostMapping("/user")
+	public ResponseEntity<?> createUser(@RequestBody UserDto request) {
+		return service.createUser(request);
+	}
+
+	// Update Method
+	@PutMapping("/user/{userId}")
+	public ResponseEntity<?> updateUser(@PathVariable("userId") String userId, @RequestBody UserDto request)
+			throws Exception {
+		return service.updateUser(userId, request);
+	}
+
+	@PutMapping("/product/{prdId}")
+	public ResponseEntity<?> updateProduct(@PathVariable("prdId") Long prdId, @RequestBody ProductDto request)
+			throws Exception {
+		return service.updateProduct(prdId, request);
+	}
+
+	// Delete Method
+	public ResponseEntity<?> deleteUser(@PathVariable("prdId") Long prdId) {
+
+	}
+
+}

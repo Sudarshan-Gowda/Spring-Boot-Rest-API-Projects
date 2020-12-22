@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;restapi-oracle-schema-war/docs/Screenshot 2020-12-20 at 8.14.16 PM.png&apos; to &apos;mvn-war-file.png&apos;" description="Rename resource &apos;Screenshot 2020-12-20 at 8.14.16 PM.png&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="docs/Screenshot 2020-12-20 at 8.14.16 PM.png" name="mvn-war-file.png" stamp="1608466506567" updateReferences="true"/>
+</session>

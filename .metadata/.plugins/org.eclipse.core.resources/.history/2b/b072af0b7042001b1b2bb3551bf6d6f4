@@ -1,0 +1,206 @@
+package com.star.sud.app.service.impl;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.transaction.Transactional;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+
+import com.star.sud.app.common.Error;
+import com.star.sud.app.common.ErrorDetail;
+import com.star.sud.app.constant.Constants;
+import com.star.sud.app.controller.TransactionController;
+import com.star.sud.app.dto.AddressDetailDto;
+import com.star.sud.app.dto.EmployeeDto;
+import com.star.sud.app.dto.ProjectsDto;
+import com.star.sud.app.entity.AddressDetail;
+import com.star.sud.app.entity.Department;
+import com.star.sud.app.entity.Employee;
+import com.star.sud.app.entity.Projects;
+import com.star.sud.app.exception.RecordNotFoundException;
+import com.star.sud.app.repository.EmployeeRepository;
+import com.star.sud.app.repository.ProjectsRepository;
+import com.star.sud.app.service.ITransactionService;
+import com.star.sud.app.util.GenerateResponse;
+import com.star.sud.app.util.StringUtil;
+import com.star.sud.app.validator.TransactionCommonValidator;
+
+@Service
+@Transactional
+public class TransactionServiceImpl implements ITransactionService {
+
+	// Static Attributes
+	//////////////////////
+	private static Logger log = LogManager.getLogger(TransactionController.class);
+
+	// Attributes
+	////////////////
+	@Autowired
+	private EmployeeRepository empRepo;
+
+	@Autowired
+	private ProjectsRepository proRepo;
+
+	@Autowired
+	private TransactionCommonValidator validator;
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	@Override
+	public ResponseEntity<?> createEmployee(EmployeeDto request, BindingResult result) {
+
+		log.info("createEmployee ==> STARTS");
+
+		validator.validate(request, result);
+		if (result.hasErrors())
+			return new ResponseEntity<>(GenerateResponse.getErrorResponse(getErrorObj(result)), HttpStatus.BAD_REQUEST);
+
+		Employee entity = entityFromDtoCreateEmployee(request);
+		Employee updatedEmp = empRepo.saveAndFlush(entity);
+		EmployeeDto response = dtoFromEntityCreateEmployee(updatedEmp);
+
+		log.info("createEmployee ==> ENDS");
+
+		return new ResponseEntity<>(GenerateResponse.getSuccessResponse(response), HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<?> createProjects(Set<ProjectsDto> request, BindingResult result) {
+
+		log.info("createProjects ==> STARTS");
+
+		Set<Projects> entities = new HashSet<>();
+		request.stream().forEach(req -> {
+			Projects project = new Projects();
+			BeanUtils.copyProperties(req, project, "employees");
+			project.setProjectCode(getProjectCode());
+			entities.add(project);
+		});
+
+		List<Projects> saveAll = proRepo.saveAll(entities);
+
+		Set<ProjectsDto> response = new HashSet<>();
+		saveAll.stream().forEach(entity -> {
+			ProjectsDto dto = new ProjectsDto();
+			BeanUtils.copyProperties(entity, dto);
+			response.add(dto);
+		});
+
+		log.info("createProjects ==> ENDS");
+
+		return new ResponseEntity<>(GenerateResponse.getSuccessResponse(response), HttpStatus.OK);
+	}
+
+	// Helper Methods
+	//////////////////
+	private Employee entityFromDtoCreateEmployee(EmployeeDto request) {
+		Employee entity = new Employee();
+		entity.setDepartment(new Department());
+
+		BeanUtils.copyProperties(request, entity, "addressDetails");
+		entity.setStatus(Constants.ACTIVE);
+		BeanUtils.copyProperties(request, entity.getDepartment());
+
+		if (StringUtil.isNotEmptyList(request.getAddressDetails())) {
+			Set<AddressDetail> addressSet = new HashSet<>();
+			request.getAddressDetails().stream().forEach(addres -> {
+				AddressDetail addressDetail = new AddressDetail();
+				BeanUtils.copyProperties(addres, addressDetail);
+				addressSet.add(addressDetail);
+			});
+			entity.setAddressDetails(addressSet);
+		}
+
+		if (StringUtil.isNotEmptyList(request.getProjects())) {
+			Set<Projects> projects = new HashSet<>();
+			request.getProjects().stream().forEach(project -> {
+				Projects pro = new Projects();
+				BeanUtils.copyProperties(project, pro);
+				projects.add(pro);
+			});
+			entity.setProjects(projects);
+		}
+		return entity;
+	}
+
+	private EmployeeDto dtoFromEntityCreateEmployee(Employee updatedEmp) {
+		EmployeeDto response = new EmployeeDto();
+		BeanUtils.copyProperties(updatedEmp, response);
+
+		if (StringUtil.isNotEmptyList(updatedEmp.getAddressDetails())) {
+			Set<AddressDetailDto> addrSet = new HashSet<AddressDetailDto>();
+			updatedEmp.getAddressDetails().stream().forEach(address -> {
+				AddressDetailDto addDto = new AddressDetailDto();
+				BeanUtils.copyProperties(address, addDto, "addressId");
+				addrSet.add(addDto);
+			});
+			response.setAddressDetails(addrSet);
+		}
+
+		if (StringUtil.isNotEmptyList(updatedEmp.getProjects())) {
+			Set<ProjectsDto> projectsDtos = new HashSet<>();
+			updatedEmp.getProjects().stream().forEach(pro -> {
+				ProjectsDto pdto = new ProjectsDto();
+				BeanUtils.copyProperties(pro, pdto);
+				projectsDtos.add(pdto);
+			});
+			response.setProjects(projectsDtos);
+		}
+
+		return response;
+	}
+
+	private Error getErrorObj(BindingResult result) {
+		Error error = new Error();
+		List<ErrorDetail> errorDetails = new ArrayList<>();
+		result.getAllErrors().stream().forEach(err -> {
+			ErrorDetail detail = new ErrorDetail(err.getCode(), err.getDefaultMessage(), "ERROR");
+			errorDetails.add(detail);
+		});
+		error.setErrors(errorDetails);
+		return error;
+	}
+
+	@Override
+	public ResponseEntity<?> getEmployeeById(String empId) throws Exception {
+
+		Employee employee = empRepo.findById(empId)
+				.orElseThrow(() -> new RecordNotFoundException("No record found for the employee id: " + empId));
+
+		EmployeeDto response = dtoFromEntityCreateEmployee(employee);
+		return new ResponseEntity<>(GenerateResponse.getSuccessResponse(response), HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<?> getProjectsByCode(String projectCode) throws Exception {
+
+		Projects projects = proRepo.findByProjectCode(projectCode);
+		if (StringUtil.isEmptyObject(projects))
+			throw new RecordNotFoundException("No Record found for project code: " + projectCode);
+
+		ProjectsDto response = new ProjectsDto();
+		BeanUtils.copyProperties(projects, response);
+		return new ResponseEntity<>(GenerateResponse.getSuccessResponse(response), HttpStatus.OK);
+
+	}
+
+	private String getProjectCode() {
+		String query = "SELECT " + Constants.SCHEMA_NAME + ".PROJECT_CODE_SEQ.NEXTVAL FROM DUAL";
+		String valueOf = (String) jdbcTemplate.queryForMap(query).get("NEXTVAL");
+		return "PROJ" + StringUtils.leftPad(valueOf, 10, "0");
+	}
+
+}

@@ -1,0 +1,83 @@
+package com.star.sud.app.dto;
+
+import java.io.Serializable;
+import java.util.Set;
+
+public class EmployeeDto implements Serializable {
+
+	// Static Attributes
+	//////////////////////
+	private static final long serialVersionUID = 7771414936043651134L;
+
+	// Attributes
+	////////////////
+	private String empId;
+
+	private String empName;
+
+	private String empEmail;
+
+	private String deptCode;
+
+	private Character status;
+
+	private Set<AddressDetailDto> addressDetails;
+
+	private Set<ProjectsDto> projects;
+
+	// Properties
+	///////////////
+	public String getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(String empId) {
+		this.empId = empId;
+	}
+
+	public String getEmpName() {
+		return empName;
+	}
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
+	public String getEmpEmail() {
+		return empEmail;
+	}
+
+	public void setEmpEmail(String empEmail) {
+		this.empEmail = empEmail;
+	}
+
+	
+	public Character getStatus() {
+		return status;
+	}
+
+	public void setStatus(Character status) {
+		this.status = status;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Set<AddressDetailDto> getAddressDetails() {
+		return addressDetails;
+	}
+
+	public void setAddressDetails(Set<AddressDetailDto> addressDetails) {
+		this.addressDetails = addressDetails;
+	}
+
+	public Set<ProjectsDto> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(Set<ProjectsDto> projects) {
+		this.projects = projects;
+	}
+
+}

@@ -1,0 +1,22 @@
+package com.star.sud.app.service;
+
+import java.text.ParseException;
+import java.util.Set;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+
+import com.star.sud.app.dto.EmployeeDto;
+import com.star.sud.app.dto.ProjectsDto;
+
+public interface ITransactionService {
+
+	ResponseEntity<?> createEmployee(EmployeeDto employee, BindingResult result) throws ParseException;
+
+	ResponseEntity<?> createProjects(Set<ProjectsDto> request, BindingResult result);
+
+	ResponseEntity<?> getEmployeeById(String empId) throws Exception;
+
+	ResponseEntity<?> getProjectsByCode(String projectCode) throws Exception;
+
+}

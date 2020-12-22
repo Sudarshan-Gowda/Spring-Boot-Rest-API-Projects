@@ -1,0 +1,33 @@
+package com.star.sud.app.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.star.sud.app.constant.Constants;
+
+@Entity
+@Table(name = "DEPARTMENT", schema = Constants.SCHEMA_NAME)
+public class Department implements Serializable {
+
+	@Id
+	@Column(name = "DEPT_CODE")
+	private String deptCode;
+
+	@Column(name = "DEPT_NAME")
+	private String deptName;
+
+	@Column(name = "DEPT_DESC")
+	private String deptDesc;
+
+	@Column(name = "CREATE_DATE")
+	private Date createDate;
+
+	@Column(name = "STATUS")
+	private Character status;
+
+}

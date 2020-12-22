@@ -1,0 +1,11 @@
+package com.star.sud.app.dto;
+
+import java.io.Serializable;
+
+public class Department implements Serializable {
+
+	//Static Attributes
+	//////////////////////
+	private static final long serialVersionUID = 6194982082257207655L;
+
+}

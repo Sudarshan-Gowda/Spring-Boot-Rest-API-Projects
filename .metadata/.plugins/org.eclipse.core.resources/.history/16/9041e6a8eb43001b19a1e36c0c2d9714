@@ -1,0 +1,18 @@
+package com.star.sud.app.shoppingcart.validator;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
+public class OnlineAppValidator<T> implements Validator {
+
+	@Override
+	public boolean supports(Class<?> clazz) {
+		return T.class.isAssignableFrom(clazz);
+	}
+
+	@Override
+	public void validate(Object target, Errors errors) {
+
+	}
+
+}

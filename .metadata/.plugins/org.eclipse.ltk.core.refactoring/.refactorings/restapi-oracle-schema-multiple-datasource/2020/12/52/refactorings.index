@@ -1,0 +1,25 @@
+1608515003487	Rename type 'DatasourceConfiguration'
+1608515049175	Copy compilation unit
+1608515203642	Rename package 'com.star.sud.app.controller'
+1608515210015	Rename package 'com.star.sud.app.entity'
+1608515219173	Rename package 'com.star.sud.app.repository'
+1608515226955	Rename package 'com.star.sud.app.service'
+1608515234335	Rename package 'com.star.sud.app.service.impl'
+1608515256253	Rename package 'com.star.sud.app.service.employee.impl'
+1608518546511	Rename package 'com.star.sud'
+1608519962052	Rename package 'com.star.sud.config'
+1608522902948	Copy compilation units
+1608522911073	Delete elements
+1608523121770	Copy compilation units
+1608523129458	Delete elements
+1608527742683	Rename resource 'shopping-cart.txt'
+1608531361402	Copy compilation unit
+1608531449357	Rename type 'EmployeeIdGenerator'
+1608562728032	Rename type 'OnlineAppServiceController'
+1608595367180	Rename package 'com.star.sud.app.dto'
+1608595381956	Copy compilation units
+1608595492086	Rename type 'Product'
+1608595496328	Rename type 'ShoppingCart'
+1608595503605	Rename type 'ShoppingCartItems'
+1608595509695	Rename type 'User'
+1608624499498	Copy file

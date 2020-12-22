@@ -1,0 +1,16 @@
+EditStartersDialog.pom.autosave=true
+eclipse.preferences.version=1
+org.springframework.ide.eclipse.boot.wizard.PopularityTracker.oracle=1
+org.springframework.ide.eclipse.boot.wizard.PopularityTracker.web=1
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.artifactId=spring-boot-restapi-oracle-schema
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.bootVersion=2.4.1
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.description=Spring Boot Rest API with Oracle Schema
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.groupId=com.star.sud
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.javaVersion=1.8
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.language=java
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.name=spring-boot-restapi-oracle-schema
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.packageName=com.star.sud
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.packaging=jar
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.type=MAVEN
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.version=0.0.1-SNAPSHOT
+org.springframework.ide.eclipse.boot.wizard.initializr.url=https\://start.spring.io\n

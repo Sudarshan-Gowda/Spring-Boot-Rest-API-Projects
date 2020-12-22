@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename Java project &apos;spring-boot-restapi-oracle-schema&apos; to &apos;restapi-oracle-schema&apos;&#x0A;- Original element: &apos;spring-boot-restapi-oracle-schema&apos;&#x0A;- Renamed element: &apos;spring-boot-restapi-oracle-schema&apos;&#x0A;- Update references to refactored element" description="Rename Java project &apos;spring-boot-restapi-oracle-schema&apos;" flags="7" id="org.eclipse.jdt.ui.rename.java.project" input="=spring-boot-restapi-oracle-schema" name="restapi-oracle-schema" references="true" stamp="1608269064879" version="1.0"/>
+</session>

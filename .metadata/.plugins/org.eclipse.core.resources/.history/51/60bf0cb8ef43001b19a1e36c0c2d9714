@@ -1,0 +1,5 @@
+package com.star.sud.app.shoppingcart.repository;
+
+public interface UserRepository extends JpaRepository<User, String> {
+
+}

@@ -1,0 +1,27 @@
+package com.star.sud.app.dto;
+
+import java.io.Serializable;
+
+public class AddressDetail implements Serializable {
+
+	// Static Attributes
+	/////////////////////
+	private static final long serialVersionUID = -5272964011424655924L;
+
+	private Long addressId;
+
+	private String addrType;
+
+	private String addrLine1;
+
+	private String addrLine2;
+
+	private String postalCode;
+
+	private String state;
+
+	private String country;
+
+	private String empId;
+
+}

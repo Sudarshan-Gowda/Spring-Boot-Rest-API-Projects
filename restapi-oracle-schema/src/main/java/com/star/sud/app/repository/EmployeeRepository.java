@@ -1,0 +1,9 @@
+package com.star.sud.app.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.star.sud.app.entity.Employee;
+
+public interface EmployeeRepository extends JpaRepository<Employee, String> {
+
+}

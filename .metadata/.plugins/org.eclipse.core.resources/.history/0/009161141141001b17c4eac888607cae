@@ -1,0 +1,22 @@
+package com.star.sud.app.entity;
+
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "DEPARTMENT")
+public class Department {
+	
+	private String deptCode;
+	
+	private String deptName;
+	
+	private String deptDesc;
+	
+	private Date createDate;
+	
+	private Character status;
+
+}

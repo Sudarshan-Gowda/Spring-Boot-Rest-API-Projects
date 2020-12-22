@@ -1,0 +1,75 @@
+package com.star.sud.app.validator;
+
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+import com.star.sud.app.common.ErrorCode;
+import com.star.sud.app.employee.dto.EmployeeDto;
+import com.star.sud.app.util.StringUtil;
+
+@Component
+public class TransactionCommonValidator implements Validator {
+
+	@Override
+	public boolean supports(Class<?> clazz) {
+		return EmployeeDto.class.isAssignableFrom(clazz);
+	}
+
+	@Override
+	public void validate(Object target, Errors errors) {
+		EmployeeDto request = (EmployeeDto) target;
+
+		if (StringUtil.isEmptyObject(request)) {
+			errors.reject(ErrorCode.EC001.getCode(), "Unable to process due to empty request");
+			return;
+		}
+
+		ValidationUtils.rejectIfEmpty(errors, "empName", ErrorCode.EC001.getCode(), "empName identifier is required");
+
+		ValidationUtils.rejectIfEmpty(errors, "empEmail", ErrorCode.EC001.getCode(), "empEmail identifier is required");
+
+		ValidationUtils.rejectIfEmpty(errors, "deptCode", ErrorCode.EC001.getCode(), "deptCode identifier is required");
+
+		ValidationUtils.rejectIfEmpty(errors, "addressDetails", ErrorCode.EC001.getCode(),
+				"addressDetails list is required");
+
+		ValidationUtils.rejectIfEmpty(errors, "projects", ErrorCode.EC001.getCode(), "projects list is required");
+
+		if (StringUtil.isNotEmptyList(request.getAddressDetails())) {
+
+			request.getAddressDetails().stream().forEach(address -> {
+				if (StringUtil.isEmptyString(address.getAddrLine1()))
+					errors.reject(ErrorCode.EC001.getCode(), "addrLine1 identifier is required");
+
+				if (StringUtil.isEmptyString(address.getAddrLine2()))
+					errors.reject(ErrorCode.EC001.getCode(), "addrLine2 identifier is required");
+
+				if (StringUtil.isEmptyString(address.getAddrType()))
+					errors.reject(ErrorCode.EC001.getCode(), "addrType identifier is required");
+
+				if (StringUtil.isEmptyString(address.getCountry()))
+					errors.reject(ErrorCode.EC001.getCode(), "country identifier is required");
+
+				if (StringUtil.isEmptyString(address.getState()))
+					errors.reject(ErrorCode.EC001.getCode(), "state identifier is required");
+
+				if (StringUtil.isEmptyString(address.getPostalCode()))
+					errors.reject(ErrorCode.EC001.getCode(), "postalCode identifier is required");
+
+			});
+		}
+
+		if (StringUtil.isNotEmptyList(request.getProjects())) {
+
+			request.getProjects().stream().forEach(project -> {
+				if (StringUtil.isEmptyLong(project.getProjectId()))
+					errors.reject(ErrorCode.EC001.getCode(), "projectId identifier is required");
+			});
+
+		}
+
+	}
+
+}

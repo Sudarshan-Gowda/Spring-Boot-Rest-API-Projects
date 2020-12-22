@@ -1,0 +1,25 @@
+package com.star.sud.app.dto;
+
+import com.star.sud.app.entity.Employee;
+
+public class AddressDetail {
+
+	private Long addressId;
+
+	private String addrType;
+
+	private String addrLine1;
+
+	private String addrLine2;
+
+	private String postalCode;
+
+	private String state;
+
+	private String country;
+
+	private String empId;
+
+	private Employee employee;
+
+}

@@ -1,0 +1,11 @@
+package com.star.sud.app.shoppingcart.entity;
+
+import java.io.Serializable;
+
+public class ShoppingCartItems implements Serializable {
+
+	// Static Attributes
+	/////////////////////
+	private static final long serialVersionUID = -6381183293158878816L;
+
+}

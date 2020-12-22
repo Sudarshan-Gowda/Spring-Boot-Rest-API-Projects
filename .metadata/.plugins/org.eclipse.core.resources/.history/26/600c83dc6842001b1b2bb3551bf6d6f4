@@ -1,0 +1,68 @@
+package com.star.sud.app.controller;
+
+import java.util.Set;
+
+import javax.validation.Valid;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.star.sud.app.dto.EmployeeDto;
+import com.star.sud.app.dto.ProjectsDto;
+import com.star.sud.app.service.ITransactionService;
+
+@Controller
+@CrossOrigin
+@RequestMapping(value = "/transaction")
+public class TransactionController {
+
+	// Static Attributes
+	//////////////////////
+	private static Logger log = LogManager.getLogger(TransactionController.class);
+
+	// Attributes
+	/////////////////
+	@Autowired
+	private ITransactionService service;
+
+	// RequestMapping Methods
+	/////////////////////
+
+	@PostMapping(value = "/project")
+	public ResponseEntity<?> createProject(@RequestBody Set<ProjectsDto> request, BindingResult result) {
+		log.info("TransactionController.createProject()");
+		return service.createProjects(request, result);
+	}
+
+	@PostMapping(value = "/employee")
+	public ResponseEntity<?> createEmployee(@RequestBody @Valid EmployeeDto request, BindingResult result) {
+		log.info("TransactionController.createEmployee()");
+		return service.createEmployee(request, result);
+
+	}
+
+	@GetMapping(value = "/employee/{empId}")
+	public ResponseEntity<?> getEmployeeById(@PathVariable String empId) throws Exception {
+		log.info("TransactionController.getEmployeeById()");
+		return service.getEmployeeById(empId);
+
+	}
+
+	@GetMapping(value = "/projects/{projectCode}")
+	public ResponseEntity<?> getProjectsById(@PathVariable String projectCode) throws Exception {
+
+		log.info("TransactionController.getEmployeeById()");
+		return service.getEmployeeById(empId);
+	}
+
+}

@@ -1,0 +1,31 @@
+1608269094624	Rename type 'SpringBootRestapiOracleSchemaApplication'
+1608269096548	Rename type 'SpringBootRestapiOracleSchemaApplicationTests'
+1608280877637	Rename package 'com.star.sud.controller'
+1608280893343	Rename package 'com.star.sud.entity'
+1608280898314	Rename package 'com.star.sud.dto'
+1608280902863	Rename package 'com.star.sud.repo'
+1608280908741	Rename package 'com.star.sud.service'
+1608280914556	Rename package 'com.star.sud.validator'
+1608284664583	Rename type 'Employee'
+1608284690520	Rename type 'Employees'
+1608285509597	Rename type 'Address'
+1608285516167	Rename type 'AddressDetails'
+1608310156086	Delete element
+1608352628579	Rename package 'com.star.sud.app.repo'
+1608353435312	Rename type 'AddressDetail'
+1608353449678	Rename type 'Department'
+1608353453482	Rename type 'Employee'
+1608356743085	Delete element
+1608356855445	Copy compilation units
+1608356861291	Delete element
+1608356866582	Delete element
+1608400721255	Delete element
+1608403118506	Delete element
+1608440422823	Rename resource 'Screenshot 2020-12-20 at 12.56.56 PM.png'
+1608440453573	Rename resource 'Pic02.png'
+1608440463286	Rename resource 'Screenshot 2020-12-20 at 12.58.31 PM.png'
+1608440468130	Rename resource 'Screenshot 2020-12-20 at 12.58.09 PM.png'
+1608440473733	Rename resource 'Screenshot 2020-12-20 at 12.57.50 PM.png'
+1608440478557	Rename resource 'Screenshot 2020-12-20 at 12.57.35 PM.png'
+1608440482698	Rename resource 'Screenshot 2020-12-20 at 12.55.09 PM.png'
+1608466407341	Copy folder

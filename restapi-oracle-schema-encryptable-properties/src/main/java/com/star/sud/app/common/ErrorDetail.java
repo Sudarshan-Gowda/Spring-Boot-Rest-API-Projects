@@ -1,0 +1,88 @@
+package com.star.sud.app.common;
+
+import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
+public class ErrorDetail implements Serializable {
+
+	// Static Attributes
+	///////////////////////
+	private static final long serialVersionUID = -8917037042665745556L;
+
+	// Attributes
+	////////////////////
+	private String code;
+	private String message;
+	private String detail;
+	private String severityLevel;
+
+	// Constructors
+	////////////////
+	public ErrorDetail() {
+		super();
+	}
+
+	/**
+	 * @param code
+	 * @param message
+	 * @param severityLevel
+	 */
+	public ErrorDetail(String code, String message, String severityLevel) {
+		super();
+		this.code = code;
+		this.message = message;
+		this.severityLevel = severityLevel;
+	}
+
+	/**
+	 * @param code
+	 * @param message
+	 * @param detail
+	 * @param severityLevel
+	 */
+	public ErrorDetail(String code, String message, String detail, String severityLevel) {
+		super();
+		this.code = code;
+		this.message = message;
+		this.detail = detail;
+		this.severityLevel = severityLevel;
+	}
+
+	// Properties
+	/////////////////
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	public String getSeverityLevel() {
+		return severityLevel;
+	}
+
+	public void setSeverityLevel(String severityLevel) {
+		this.severityLevel = severityLevel;
+	}
+
+}

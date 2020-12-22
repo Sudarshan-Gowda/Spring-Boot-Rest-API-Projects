@@ -1,0 +1,88 @@
+package com.star.sud.app.shoppingcart.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+import com.star.sud.app.constant.Constants;
+
+@Entity
+@Table(name = "APP_USER", schema = Constants.SCHEMA_ONLINE_APP)
+public class User implements Serializable {
+
+	// Static Attributes
+	//////////////////////
+	private static final long serialVersionUID = -8492733867642848148L;
+
+	@Id
+	@GenericGenerator(name = "USER_ID_SEQ", strategy = "com.star.sud.app.common.UserIdGenerator")
+	@GeneratedValue(generator = "USER_ID_SEQ")
+	@Column(name = "USER_ID")
+	private String userId;
+
+	@Column(name = "USER_NAME")
+	private String userName;
+
+	@Column(name = "USER_EMAIL")
+	private String userEmail;
+
+	@Column(name = "DATE_OF_BIRTH")
+	private Date dateOfBirth;
+
+	@Column(name = "STATUS")
+	private Character status;
+
+	//Properties
+	////////////////
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public Character getStatus() {
+		return status;
+	}
+
+	public void setStatus(Character status) {
+		this.status = status;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+}

@@ -1,0 +1,34 @@
+package com.star.sud.app.shoppingcart.service;
+
+import org.springframework.http.ResponseEntity;
+
+import com.star.sud.app.exception.RecordNotFoundException;
+import com.star.sud.app.shoppingcart.dto.ProductDto;
+import com.star.sud.app.shoppingcart.dto.ShoppingCartDto;
+import com.star.sud.app.shoppingcart.dto.UserDto;
+
+public interface IOnlineAppService {
+
+	ResponseEntity<?> createProduct(ProductDto request);
+
+	ResponseEntity<?> createUser(UserDto request);
+
+	ResponseEntity<?> updateUser(String userId, UserDto request) throws Exception;
+
+	ResponseEntity<?> updateProduct(Long prdId, ProductDto request) throws Exception;
+
+	ResponseEntity<?> deleteUser(String userId);
+
+	ResponseEntity<?> deleteProduct(Long prdId);
+
+	ResponseEntity<?> createShoppingCart(ShoppingCartDto request);
+
+	ResponseEntity<?> deleteShoppingCart(Long cartId);
+
+	ResponseEntity<?> getShoppingCartById(Long cartId) throws RecordNotFoundException;
+
+	ResponseEntity<?> getProductById(Long prdId);
+
+	ResponseEntity<?> getUserById(String userId);
+
+}

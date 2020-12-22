@@ -1,0 +1,101 @@
+package com.star.sud.app.util;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.star.sud.app.common.Error;
+import com.star.sud.app.common.ErrorCode;
+import com.star.sud.app.common.ErrorDetail;
+import com.star.sud.app.common.ResponseDTO;
+import com.star.sud.app.common.SeverityLevel;
+
+public class GenerateResponse {
+
+	// Constructors
+	//////////////////
+	private GenerateResponse() {
+
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> ResponseDTO<T> getSuccessResponse(Object result) {
+		ResponseDTO responseDTO = new ResponseDTO<>();
+		responseDTO.setData(result);
+		return responseDTO;
+	}
+
+	
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> ResponseDTO<T> getErrorResponse(Object result, Error error) {
+		ResponseDTO responseDTO = new ResponseDTO<>();
+		responseDTO.setError(error);
+		responseDTO.setData(result);
+		return responseDTO;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> ResponseDTO<T> getIntServErrorResp(String errorDetails) {
+		ResponseDTO responseDTO = new ResponseDTO<>();
+
+		responseDTO.setError(getError(ErrorCode.EC002.getCode(), ErrorCode.EC002.getDescription(), errorDetails,
+				SeverityLevel.ERROR.getCode()));
+
+		return responseDTO;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> ResponseDTO<T> getIntServErrorResp(Object result, String errorDetails) {
+		ResponseDTO responseDTO = new ResponseDTO<>();
+
+		responseDTO.setData(result);
+		responseDTO.setError(getError(ErrorCode.EC002.getCode(),
+				ErrorCode.EC002.getDescription(), errorDetails,
+				SeverityLevel.ERROR.getCode()));
+
+		return responseDTO;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> ResponseDTO<T> getGenericErrorResp(String errorCode, String errorDescription,
+			String errorDetails) {
+		ResponseDTO responseDTO = new ResponseDTO<>();
+		responseDTO.setError(getError(errorCode, errorDescription, errorDetails, SeverityLevel.ERROR.getCode()));
+		return responseDTO;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> ResponseDTO<T> getBadReqErrorResp(String errorDetails) {
+		ResponseDTO responseDTO = new ResponseDTO<>();
+
+		responseDTO.setError(getError(ErrorCode.EC001.getCode(), ErrorCode.EC001.getDescription(), errorDetails,
+				SeverityLevel.ERROR.getCode()));
+
+		return responseDTO;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> ResponseDTO<T> getBadReqErrorResp(Object result, String errorDetails) {
+		ResponseDTO responseDTO = new ResponseDTO<>();
+
+		responseDTO.setData(result);
+		responseDTO.setError(getError(ErrorCode.EC001.getCode(), ErrorCode.EC001.getDescription(), errorDetails,
+				SeverityLevel.ERROR.getCode()));
+
+		return responseDTO;
+	}
+
+	private static Error getError(String code, String message, String detail, String severity) {
+		Error error = new Error();
+		List<ErrorDetail> errors = new ArrayList<>();
+		ErrorDetail errorDetail = new ErrorDetail();
+		errorDetail.setCode(code);
+		errorDetail.setMessage(message);
+		errorDetail.setDetail(detail);
+		errorDetail.setSeverityLevel(severity);
+		errors.add(errorDetail);
+		error.setErrors(errors);
+		return error;
+	}
+
+}

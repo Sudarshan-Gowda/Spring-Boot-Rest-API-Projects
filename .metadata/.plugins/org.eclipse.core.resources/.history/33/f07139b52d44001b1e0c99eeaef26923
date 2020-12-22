@@ -1,0 +1,193 @@
+Maven Commands:
+==============
+
+MacOs:
+--------
+ mvn clean install -Dspring.config.location=src/main/resources/ -Dmaven.test.skip=true
+ mvn spring-boot:run -Dspring.config.location=src/main/resources/
+ 
+
+Windows OS:
+----------
+mvn clean install -Dspring.config.location=src\main\resources\ -Dmaven.test.skip=true
+mvn spring-boot:run -Dspring.config.location=src\main\resources\
+ 
+
+**************************
+
+
+APP_URL = http://localhost:8080/restapi
+
+=======================================
+------------------------
+API 01 - Create Product:
+------------------------
+URI: <APP_URL>/shop/product
+Method: POST
+
+Request:
+-------
+{
+    "productCode":"PRD01",
+    "productDesc":"Product 01"
+}
+
+Response:
+---------
+{
+    "data": {
+        "productId": 4,
+        "productCode": "PRD01",
+        "productDesc": "Product 01",
+        "status": "A",
+        "createDate": "2020-12-22"
+    }
+}
+
+=======================================
+
+
+------------------------
+API 02 - Create User:
+------------------------
+URI: <APP_URL>/shop/user
+Method: POST
+
+Request:
+-------
+{
+    "userName":"User 01",
+    "userEmail":"user01@gmail.com",
+    "dateOfBirth":"1990-01-01"
+}
+
+Response:
+---------
+{
+    "data": {
+        "userId": "USER10000002",
+        "userName": "User 01",
+        "userEmail": "user01@gmail.com",
+        "dateOfBirth": "1990-01-01",
+        "status": "A"
+    }
+}
+
+=======================================
+
+
+------------------------
+API 03 - Create Shopping Cart
+------------------------
+URI: <APP_URL>/shop/shoppingcart
+Method: PUT
+
+Request:
+-------
+{
+    "userId": "USER10000002",
+    "shoppingCartItems": [
+        {
+            "productId": 2,
+            "quantity": 5
+        },
+        {
+            "productId": 4,
+            "quantity": 2
+        }
+    ]
+}
+
+Response:
+---------
+{
+    "data": {
+        "shapCartId": 8,
+        "shoppingCartItems": [
+            {
+                "shapCartItemId": 8,
+                "productId": 2,
+                "quantity": 5
+            },
+            {
+                "shapCartItemId": 7,
+                "productId": 4,
+                "quantity": 2
+            }
+        ]
+    }
+}
+
+=======================================
+
+
+------------------------
+API 04 - Get User By Id
+------------------------
+URI: <APP_URL>/shop/user/{userId}
+Method: POST
+
+Response:
+---------
+{
+    "data": {
+        "userId": "USER10000002",
+        "userName": "User 01",
+        "userEmail": "user01@gmail.com",
+        "dateOfBirth": "1990-01-01",
+        "status": "A"
+    }
+}
+
+
+=======================================
+
+
+------------------------
+API 04 - Get Product By ID
+------------------------
+URI: <APP_URL>/restapi/shop/product/{productId}
+Method: POST
+
+Response:
+---------
+{
+    "data": {
+        "productId": 2,
+        "productCode": "PRD01",
+        "productDesc": "Product 01",
+        "status": "A",
+        "createDate": "2020-12-22"
+    }
+}
+
+
+=======================================
+
+------------------------
+API 04 - Get Product By ID
+------------------------
+URI: <APP_URL>/restapi/shop/shoppingcart/7
+Method: POST
+
+Response:
+---------
+{
+    "data": {
+        "productId": 2,
+        "productCode": "PRD01",
+        "productDesc": "Product 01",
+        "status": "A",
+        "createDate": "2020-12-22"
+    }
+}
+
+
+
+------------------------
+API 04 - Delete Employee By ID
+------------------------
+URI: <APP_URL>/transaction/employee/{empId}
+Method: DELETE
+
+=======================================

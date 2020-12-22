@@ -1,0 +1,42 @@
+package com.star.sud.app.shoppingcart.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+import com.star.sud.app.constant.Constants;
+
+@Entity
+@Table(name = "USER", schema = Constants.SCHEMA_ONLINE_APP)
+public class User implements Serializable {
+
+	// Static Attributes
+	//////////////////////
+	private static final long serialVersionUID = -8492733867642848148L;
+
+	@Id
+	@GenericGenerator(name = "EMPLOYEE_SEQ", strategy = "com.star.sud.app.common.CustomGenerator")
+	@GeneratedValue(generator = "EMPLOYEE_SEQ")
+	@Column(name = "USER_ID")
+	private String userId;
+
+	@Column(name = "USER_NAME")
+	private String userName;
+
+	@Column(name = "USER_EMAIL")
+	private String userEmail;
+
+	@Column(name = "DATE_OF_BIRTH")
+	private Date dateOfBirth;
+
+	@Column(name="")
+	private Character status;
+
+}

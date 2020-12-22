@@ -1,0 +1,25 @@
+package com.star.sud.app.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "PROJECTS")
+public class Projects {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GENERAL_SETTINGS_SEQ")
+	@SequenceGenerator(name = "GENERAL_SETTINGS_SEQ", sequenceName = "GENERAL_SETTINGS_SEQ")
+	private Long id;
+
+	private String projectCode;
+
+	private String projectName;
+
+	private String projectDesc;
+
+}
