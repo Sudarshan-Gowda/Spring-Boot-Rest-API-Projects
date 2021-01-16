@@ -38,68 +38,112 @@ public class ConsumeController {
 	@Value("${HELLO_URL}")
 	private String hellUrl;
 
+	@Value("${REFRESH_TOKEN}")
+	private String refreshToken;
+
+	private String token;
+
 	@RequestMapping(value = "/getResponse", method = RequestMethod.GET)
 	public String getResponse() throws JsonProcessingException {
 
+		log.info("getResponse starts");
+
+		String response = null;
+		// create user registration object
+		RegistrationUser registrationUser = getRegistrationUser();
+		// convert the user registration object to JSON
+		String registrationBody = getBody(registrationUser);
+		// create headers specifying that it is JSON request
+		HttpHeaders registrationHeaders = getHeaders();
+		HttpEntity<String> registrationEntity = new HttpEntity<String>(registrationBody, registrationHeaders);
+
 		try {
-
-			HttpHeaders registrationHeaders = getHeaders();
-			HttpEntity<String> registrationEntity = new HttpEntity<String>(getBody(getRegistrationUser()),
-					registrationHeaders);
-
 			// Register User
-			ResponseEntity<String> registrationResponse = restTemplate.exchange(this.regUrl, HttpMethod.POST,
+			ResponseEntity<String> registrationResponse = restTemplate.exchange(regUrl, HttpMethod.POST,
 					registrationEntity, String.class);
+			log.info("registrationResponse : {}", registrationResponse);
 			// if the registration is successful
-			if (!registrationResponse.getStatusCode().equals(HttpStatus.OK))
-				throw new Exception("failed to register the user from backend server");
+			if (registrationResponse.getStatusCode().equals(HttpStatus.OK)) {
 
-			// create user authentication object
-			User authenticationUser = getAuthenticationUser();
-			// convert the user authentication object to JSON
-			String authenticationBody = getBody(authenticationUser);
-			// create headers specifying that it is JSON request
-			HttpHeaders authenticationHeaders = getHeaders();
-			HttpEntity<String> authenticationEntity = new HttpEntity<String>(authenticationBody, authenticationHeaders);
+				// create user authentication object
+				User authenticationUser = getAuthenticationUser();
+				// convert the user authentication object to JSON
+				String authenticationBody = getBody(authenticationUser);
+				// create headers specifying that it is JSON request
+				HttpHeaders authenticationHeaders = getHeaders();
+				HttpEntity<String> authenticationEntity = new HttpEntity<String>(authenticationBody,
+						authenticationHeaders);
 
-			// Authenticate User and get JWT
-			ResponseEntity<ResponseToken> authenticationResponse = restTemplate.exchange(this.authUrl, HttpMethod.POST,
-					authenticationEntity, ResponseToken.class);
+				// Authenticate User and get JWT
+				ResponseEntity<ResponseToken> authenticationResponse = restTemplate.exchange(authUrl, HttpMethod.POST,
+						authenticationEntity, ResponseToken.class);
 
-			// if the authentication is successful
-			if (!authenticationResponse.getStatusCode().equals(HttpStatus.OK))
-				throw new Exception("Authentication Exception");
+				log.info("authenticationResponse: {}", authenticationResponse);
 
-			String token = "Bearer " + authenticationResponse.getBody().getToken();
-			HttpHeaders headers = getHeaders();
-			headers.set("Authorization", token);
-			HttpEntity<String> jwtEntity = new HttpEntity<String>(headers);
-			// Use Token to get Response
-			ResponseEntity<String> helloResponse = restTemplate.exchange(this.hellUrl, HttpMethod.GET, jwtEntity,
-					String.class);
-			if (!helloResponse.getStatusCode().equals(HttpStatus.OK))
-				throw new Exception("Failed to get the response from the server");
+				// if the authentication is successful
+				if (authenticationResponse.getStatusCode().equals(HttpStatus.OK)) {
+					token = "Bearer " + authenticationResponse.getBody().getToken();
+					response = getData();
 
-			return helloResponse.getBody();
-
+				}
+			}
 		} catch (Exception ex) {
-			log.error("getResponse", ex);
+			// check if exception is due to ExpiredJwtException
+			if (ex.getMessage().contains("io.jsonwebtoken.ExpiredJwtException")) {
+				// Refresh Token
+				refreshToken();
+				// try again with refresh token
+				response = getData();
+			} else {
+				System.out.println(ex);
+			}
 		}
-		return null;
+		log.info("getResponse end");
+		return response;
+
+	}
+
+	private String getData() {
+		String response = null;
+
+		HttpHeaders headers = getHeaders();
+		headers.set("Authorization", token);
+		HttpEntity<String> jwtEntity = new HttpEntity<String>(headers);
+		// Use Token to get Response
+		ResponseEntity<String> helloResponse = restTemplate.exchange(hellUrl, HttpMethod.GET, jwtEntity, String.class);
+		if (helloResponse.getStatusCode().equals(HttpStatus.OK)) {
+			response = helloResponse.getBody();
+		}
+		return response;
+
+	}
+
+	private void refreshToken() {
+		HttpHeaders headers = getHeaders();
+		headers.set("Authorization", token);
+		headers.set("isRefreshToken", "true");
+		HttpEntity<String> jwtEntity = new HttpEntity<String>(headers);
+		// Use Token to get Response
+		ResponseEntity<ResponseToken> refreshTokenResponse = restTemplate.exchange(refreshToken, HttpMethod.GET,
+				jwtEntity, ResponseToken.class);
+		if (refreshTokenResponse.getStatusCode().equals(HttpStatus.OK)) {
+			token = "Bearer " + refreshTokenResponse.getBody().getToken();
+		}
+
 	}
 
 	private RegistrationUser getRegistrationUser() {
 		RegistrationUser user = new RegistrationUser();
-		user.setUsername("user01");
-		user.setPassword("password");
+		user.setUsername("javainuse");
+		user.setPassword("javainuse");
 		user.setRole("ROLE_ADMIN");
 		return user;
 	}
 
 	private User getAuthenticationUser() {
 		User user = new User();
-		user.setUsername("user01");
-		user.setPassword("password");
+		user.setUsername("javainuse");
+		user.setPassword("javainuse");
 		return user;
 	}
 
@@ -113,5 +157,4 @@ public class ConsumeController {
 	private String getBody(final User user) throws JsonProcessingException {
 		return new ObjectMapper().writeValueAsString(user);
 	}
-
 }
